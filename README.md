@@ -39,3 +39,12 @@ Now that we are done with all the set-up & installation steps we can start the a
 
 ---
 Copyright©️ Codebasics Inc. All rights reserved.
+
+
+
+
+
+# self  details 
+
+ python -m venv venv  
+ .\venv\Scripts\Activate 
