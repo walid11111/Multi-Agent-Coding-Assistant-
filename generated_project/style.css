@@ -1,0 +1,130 @@
+:root {
+  /* Color palette */
+  --color-primary: #4a90e2;
+  --color-primary-light: #6fb3ff;
+  --color-action: #ff9500; /* operations like +, -, ×, ÷ */
+  --color-action-light: #ffa733;
+  --color-bg: #f9f9f9;
+  --color-display-bg: #fff;
+  --color-border: #ccc;
+  --color-text: #333;
+
+  /* Typography */
+  --font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-size-display: 2rem;
+  --font-size-button: 1.2rem;
+
+  /* Sizing & spacing */
+  --max-width: 400px;
+  --spacing: 0.75rem;
+  --gap: 0.5rem;
+  --button-height: 3rem;
+  --border-radius: 0.5rem;
+  --button-radius: 0.3rem;
+}
+
+/* Global reset for consistency */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background: #eaeaea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  color: var(--color-text);
+}
+
+.calculator {
+  max-width: var(--max-width);
+  width: 100%;
+  margin: var(--spacing) auto;
+  background: var(--color-bg);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: var(--spacing);
+}
+
+.display {
+  width: 100%;
+  font-size: var(--font-size-display);
+  text-align: right;
+  padding: var(--spacing);
+  border: 1px solid var(--color-border);
+  border-radius: var(--button-radius);
+  background: var(--color-display-bg);
+  margin-bottom: var(--spacing);
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap);
+}
+
+button {
+  height: var(--button-height);
+  font-size: var(--font-size-button);
+  font-family: var(--font-family);
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--button-radius);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+button:hover,
+button:focus {
+  background: var(--color-primary-light);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+/* Operation / action buttons */
+button[data-action] {
+  background: var(--color-action);
+}
+
+button[data-action]:hover,
+button[data-action]:focus {
+  background: var(--color-action-light);
+}
+
+/* Equals button spans three columns – keep same height but ensure full width */
+button[data-action="equals"] {
+  grid-column: span 3;
+  background: var(--color-action);
+  font-weight: bold;
+}
+
+/* Backspace button – keep primary colour for visual distinction */
+button[data-action="backspace"] {
+  background: var(--color-primary);
+}
+
+/* Clear button – use a slightly different hue */
+button[data-action="clear"] {
+  background: #d9534f; /* bootstrap danger colour */
+}
+
+button[data-action="clear"]:hover,
+button[data-action="clear"]:focus {
+  background: #c9302c;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  :root {
+    --font-size-display: 1.5rem;
+    --font-size-button: 1rem;
+    --gap: 0.3rem;
+    --button-height: 2.5rem;
+    --spacing: 0.5rem;
+  }
+}

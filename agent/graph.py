@@ -1,5 +1,4 @@
 from dotenv import load_dotenv
-from langchain.globals import set_verbose, set_debug
 from langchain_groq.chat_models import ChatGroq
 from langgraph.constants import END
 from langgraph.graph import StateGraph
@@ -10,9 +9,6 @@ from agent.states import *
 from agent.tools import write_file, read_file, get_current_directory, list_files
 
 _ = load_dotenv()
-
-set_debug(True)
-set_verbose(True)
 
 llm = ChatGroq(model="openai/gpt-oss-120b")
 
@@ -70,7 +66,14 @@ def coder_agent(state: dict) -> dict:
                                      {"role": "user", "content": user_prompt}]})
 
     coder_state.current_step_idx += 1
-    return {"coder_state": coder_state}
+
+    written_content = read_file.run(current_task.filepath)
+    return {
+        "coder_state": coder_state,
+        "current_filepath": current_task.filepath,
+        "current_content": written_content,
+        "current_task": current_task.task_description,
+    }
 
 
 graph = StateGraph(dict)

@@ -57,6 +57,12 @@ def run_cmd(cmd: str, cwd: str = None, timeout: int = 30) -> Tuple[int, str, str
     return res.returncode, res.stdout, res.stderr
 
 
+def set_project_root(path: str | pathlib.Path):
+    """Set the project root directory (for session-specific output)."""
+    global PROJECT_ROOT
+    PROJECT_ROOT = pathlib.Path(path).resolve()
+
+
 def init_project_root():
     PROJECT_ROOT.mkdir(parents=True, exist_ok=True)
     return str(PROJECT_ROOT)

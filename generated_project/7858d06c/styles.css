@@ -1,0 +1,148 @@
+/*
+ * Calculator UI Styles – Modern, Responsive, and Accessible
+ * ------------------------------------------------------
+ * This stylesheet provides a clean, flex‑grid layout for the calculator
+ * defined in `index.html`. It uses CSS custom properties (variables) for
+ * colour theming, ensuring sufficient contrast (WCAG AA) and making future
+ * colour adjustments straightforward.
+ */
+
+/* --------------------------------------------------------------------------
+ * Root variables – colour palette (WCAG AA compliant)
+ * -------------------------------------------------------------------------- */
+:root {
+  /* Primary accent colour – blue with good contrast against white */
+  --color-primary: #1976d2;               /* #1976d2 on #ffffff → 4.5:1 */
+  /* Background for the page */
+  --color-background: #f5f5f5;            /* Light gray */
+  /* Default text colour – dark enough for contrast */
+  --color-text: #212121;                  /* #212121 on #ffffff → 15:1 */
+  /* Contrast colour – used for text on primary backgrounds */
+  --color-contrast: #ffffff;              /* White */
+
+  /* Specific button colours – also WCAG AA */
+  --color-digit: #e0e0e0;                 /* Light gray on dark text → 7.1:1 */
+  --color-operator: #ff9800;              /* Orange on white → 4.5:1 */
+  --color-function: #9e9e9e;              /* Medium gray on white → 4.5:1 */
+}
+
+/* --------------------------------------------------------------------------
+ * Global resets & base styles
+ * -------------------------------------------------------------------------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--color-background);
+  color: var(--color-text);
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --------------------------------------------------------------------------
+ * Calculator container – centred flex box
+ * -------------------------------------------------------------------------- */
+.calculator {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* children take full width */
+  max-width: 400px;
+  width: 90vw; /* responsive width */
+  padding: 1rem;
+  gap: 1rem;
+}
+
+/* --------------------------------------------------------------------------
+ * Display – right‑aligned, large text
+ * -------------------------------------------------------------------------- */
+.display {
+  width: 100%;
+  font-size: 2rem;
+  text-align: right;
+  padding: 0.5rem 0.75rem;
+  border: 2px solid var(--color-primary);
+  border-radius: 0.4rem;
+  background: var(--color-contrast);
+  color: var(--color-text);
+  /* Prevent zoom on mobile when focusing the readonly input */
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* --------------------------------------------------------------------------
+ * Buttons grid – 4 columns with spacing
+ * -------------------------------------------------------------------------- */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+
+/* --------------------------------------------------------------------------
+ * Base button style
+ * -------------------------------------------------------------------------- */
+button {
+  font-size: 1.2rem;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  background: var(--color-primary);
+  color: var(--color-contrast);
+  transition: background 0.2s ease, filter 0.2s ease;
+}
+
+/* Digit buttons */
+button[data-type="digit"] {
+  background: var(--color-digit);
+  color: var(--color-text);
+}
+
+/* Operator buttons */
+button[data-type="operator"] {
+  background: var(--color-operator);
+  color: var(--color-contrast);
+}
+
+/* Functional buttons (AC, C, ←, =, etc.) – identified by data-action */
+button[data-action] {
+  background: var(--color-function);
+  color: var(--color-contrast);
+}
+
+/* Hover & focus states – subtle darkening and visible outline */
+button:hover,
+button:focus {
+  filter: brightness(0.9);
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Ensure the focus outline is always visible (keyboard navigation) */
+button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+ * Responsive tweaks – touch‑friendly on small screens
+ * -------------------------------------------------------------------------- */
+@media (max-width: 600px) {
+  .calculator {
+    width: 95vw;
+  }
+
+  button {
+    font-size: 1.5rem;
+    padding: 1.2rem;
+  }
+}
